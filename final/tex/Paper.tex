@@ -196,7 +196,24 @@
 
 Population growth is one of the many models of great importance to the scientific community. These models are used to predict the challenges and changes needed in the near and longterm future as the world's population inevitably grows. It is such an important subject that the UN frequently discusses new and better ways of modelling the future population. This has led to a number of competing models, each with its own strengths and weaknesses. While no model can be perfect, some have come relatively close to matching existing data and predict reasonable growth in the future. 
 
-In order to understand just a how a few of these models operate, this paper will explore 2 separate models: standard logistic growth and a modified Lotka-Volterra model. 
+In order to understand just a how a few of these models operate, this paper will explore 3 separate models: standard logistic growth (LG), logistic growth augmented with migration data (LGM), and a modified Lotka-Volterra model (MLV). Each model has its own strengths and weaknesses and perform differently in comparison to actual data provided by the United Nations World Bank.
+
+\section{Logistic Growth}
+
+The Logistic Growth model is colloquially defined as:
+
+\begin{align*}
+	P(t) = \frac{K N_0 e^{\gamma t}}{K + N_0 (e^{\gamma t} - 1)}
+\end{align*}
+with $K$ being the theoretical maximum sustainable population, $N_0$ the initial population at time $t_0$, $\gamma$ being the yearly growth rate, and $t$ being the time since $t_0$.
+
+While $N_0$ is trivially obtained from the dataset, $\gamma$ and $K$ are not so simple to obtain. These values are optimized utilizing the least squares method on the dataset, which contains census data since 1910. This produces a model that very closely matches the data, as seen in Figure 1.
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=90mm]{images/lr-graph.png}
+\caption{Results of using least squares on logistic growth \label{overflow}}
+\end{figure}
 
 \newpage
 
