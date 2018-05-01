@@ -226,7 +226,9 @@ While $N_0$ is trivially obtained from the dataset, $\gamma$ and $K$ are not so 
 
 One theorized way to model population growth is in terms of economic growth of the human population, which can be seen as being equivalent to GDP. As GDP grows, the human population naturally grows with it due to an increase in the amount of output produced by the whole population. An interesting way to model this dynamic is through a modified version of the classic Lotka-Volterra model, which simulates the interaction between predators and prey. The population can be seen as the predator with GDP as the prey since the human population is theorized to grow with GDP up to a certain point, where it slightly decreases and reaches an equilibrium. However, there are numerous theories as to how GDP and population should be viewed together, so it is more appropriate to view the model in a more general sense. 
 
-As we discussed earlier in this course, the Lotka-Volterra model in it's most basic form is written as:
+\subsection{Transforming Lotka-Volterra}
+
+As discussed earlier in this course, the Lotka-Volterra model in it's most basic form is written as:
 
 \begin{align}
 \begin{split}
@@ -270,12 +272,17 @@ The most logical choice for $f$ should be an equation that reflects changing tec
 
 It is appropriate to now put the coefficients into context for a better understanding of how the model functions. $\alpha_1$ is the growth rate of the population in the absence of other factors, in terms of percentage. Similarly, $\beta_1$ is the growth rate of GDP in the absence of other factors. $\alpha_2$ and $\beta_2$ describe the interaction between population and GDP and should be negative. $\alpha_2$ is in terms of $\frac{1}{US\$}$ and $\beta_2$ is in terms of $\frac{1}{Hab.}$. $\alpha_3 k_1$ describes the positive affect that GDP has on the human population and is in terms of $\frac{Hab.}{US\$}$. In other words, it describes how many more people are born for each additional dollar that is added to the GDP. 
 
+\subsection{Initial Simulation}
+
+The model's authors derived what they found to be appropriate values for the parameters above when adapting the model to a global scale. The values used are: $T_0 = 1850$, $T_f = 2100$, step size $D_T = 1.0$, $P_0 = 1.15$ billion inhabitants, $G_0 = 0.21$ trillion US\$, $\alpha_1 = 0.3\%$, $\alpha_2 = \frac{-55}{10^{18} US\$}$, $\alpha_3 k_1 = 5.2 \frac{Hab.}{US \$}$, $\beta_1 = 3.1\%$, and $\beta_2 = \frac{-2}{10^{22} Hab.}$. 
+
+As the authors note, the model follows a logistic growth curve initially, as is expected for initial population growth. At a certain point though, the population actually begins to decrease, a significant divergence from the logistic growth model. This can be seen as a result of slowing technological growth and families becoming smaller as they become more financially stable. The population eventually levels out at an equilibrium just below 10 billion people. Meanwhile, GDP steadily grows at a sustained rate of about 1.5\%. GDP per capita is constantly rising throughout this period as technology also continues to improve. The authors point out, however, that a number of factors can have significant impacts on this model. In particular, major economic crises or significant technological achievement can raise or lower the equilibrium population. 
 
 \newpage
 
 \nocite{*}
 \bibliographystyle{abbrv}
-\bibliography{Paper}
+\bibliography{paper}
 
 
 \end{document}
