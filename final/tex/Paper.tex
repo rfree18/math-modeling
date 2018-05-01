@@ -202,9 +202,10 @@ In order to understand just a how a few of these models operate, this paper will
 
 The Logistic Growth model is colloquially defined as:
 
-\begin{align*}
+\begin{align}
+\label{eq:log-growth}
 	P(t) = \frac{K N_0 e^{\gamma t}}{K + N_0 (e^{\gamma t} - 1)}
-\end{align*}
+\end{align}
 with $K$ being the theoretical maximum sustainable population, $N_0$ the initial population at time $t_0$, $\gamma$ being the yearly growth rate, and $t$ being the time since $t_0$.
 
 While $N_0$ is trivially obtained from the dataset, $\gamma$ and $K$ are not so simple to obtain. These values are optimized utilizing the least squares method on the dataset, which contains census data since 1910. This produces a model that very closely matches the data, as seen in Figure 1.
@@ -214,6 +215,61 @@ While $N_0$ is trivially obtained from the dataset, $\gamma$ and $K$ are not so 
 \includegraphics[width=90mm]{images/lr-graph.png}
 \caption{Results of using least squares on logistic growth \label{overflow}}
 \end{figure}
+
+\todo{Finish details}
+
+\section{Augmented Logistic Growth}
+
+\todo{Fill in details}
+
+\section{Modified Lotka-Volterra}
+
+One theorized way to model population growth is in terms of economic growth of the human population, which can be seen as being equivalent to GDP. As GDP grows, the human population naturally grows with it due to an increase in the amount of output produced by the whole population. An interesting way to model this dynamic is through a modified version of the classic Lotka-Volterra model, which simulates the interaction between predators and prey. The population can be seen as the predator with GDP as the prey since the human population is theorized to grow with GDP up to a certain point, where it slightly decreases and reaches an equilibrium. However, there are numerous theories as to how GDP and population should be viewed together, so it is more appropriate to view the model in a more general sense. 
+
+As we discussed earlier in this course, the Lotka-Volterra model in it's most basic form is written as:
+
+\begin{align}
+\begin{split}
+\label{eq:lv1}
+	\frac{dp}{dt} = ap - rpg \\
+	\frac{dg}{dt} = rpg - bg
+\end{split}
+\end{align}
+where $p$ is the population of the prey, $g$ is the population of the predators, and $\frac{dp}{dt}$ and $\frac{dg}{dt}$ are their annual population changes. $rpg$ describes the interaction between the two species with $r$ being a regulating coefficient, $a$ being the growth rate of the prey in the absence of predators, and $b$ being the death rate of the predators in the absence of prey. Assuming $g$ and $p$ have the same variation, then the ratio $\frac{g}{p}$ can be evaluated to a constant ${q}$. \ref{eq:lv1} can then be rewritten as:
+
+\begin{align}
+\begin{split}
+\label{eq:lv2}
+	\frac{dp}{dt} = ap - rqp^2\\
+	\frac{dg}{dt} = \frac{r}{q}g^2- bg
+\end{split}
+\end{align}
+
+In order to account for other causes of variation that are not in the predator-prey system, the model can once again be modified to include a function $f(p, g, t)$. This can be seen as a function that modulates the growth of the prey in relation to a theoretical maximum capacity (i.e. due to the lack of natural resources). \ref{eq:lv2} can now be rewritten as:
+
+\begin{align}
+\begin{split}
+\label{eq:lv3}
+	\frac{dp}{dt} = (\alpha_1 + \alpha_3 f)p + \alpha_2 g p \\
+	\frac{dg}{dt} = \beta_1 g + \beta_2 p g
+\end{split}
+\end{align}
+where $a, b, r$ have been replaced by $\alpha_1, \alpha_2, \beta_1, \beta_2$, which now also contain the signs. $\alpha_3f$ modulates the growth rate $\alpha_1$
+
+From here, the model can finally be adapted to the population growth problem. $p$ can be defined as the population and $g$ as the GDP at time $t$. Putting the model into context, the function $f$ can now be determined to finally derive an appropriate model from this problem.
+
+The most logical choice for $f$ should be an equation that reflects changing technology that improves the human population's lifestyle. This is often cited by economists as being related to GDP per capita, or $\frac{g}{p}$. $f$ can then be set as $k_1 \frac{g}{p}$ where $k_1$ is some constant that regulates the effects of GDP per capita. Using that in equation \ref{eq:lv3} yields:
+
+\begin{align}
+\begin{split}
+\label{eq:lvfin}
+	\frac{dp}{dt} = \alpha_1 p + \alpha_3 k_1 g + \alpha_2 g p \\
+	\frac{dg}{dt} = \beta_1 g + \beta_2 p g
+\end{split}
+\end{align}
+
+It is appropriate to now put the coefficients into context for a better understanding of how the model functions. $\alpha_1$ is the growth rate of the population in the absence of other factors, in terms of percentage. Similarly, $\beta_1$ is the growth rate of GDP in the absence of other factors. $\alpha_2$ and $\beta_2$ describe the interaction between population and GDP and should be negative. $\alpha_2$ is in terms of $\frac{1}{US\$}$ and $\beta_2$ is in terms of $\frac{1}{Hab.}$. $\alpha_3 k_1$ describes the positive affect that GDP has on the human population and is in terms of $\frac{Hab.}{US\$}$. In other words, it describes how many more people are born for each additional dollar that is added to the GDP. 
+
 
 \newpage
 
