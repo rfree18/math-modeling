@@ -1,4 +1,5 @@
 \documentclass{article}
+\usepackage[title]{appendix}
 \usepackage{authblk}
 \usepackage{mathptmx}
 \usepackage{url,latexsym,amsmath,amsthm,xspace,rotating,multirow,multicol,xspace,amssymb,paralist}
@@ -278,11 +279,42 @@ The model's authors derived what they found to be appropriate values for the par
 
 As the authors note, the model follows a logistic growth curve initially, as is expected for initial population growth. At a certain point though, the population actually begins to decrease, a significant divergence from the logistic growth model. This can be seen as a result of slowing technological growth and families becoming smaller as they become more financially stable. The population eventually levels out at an equilibrium just below 10 billion people. Meanwhile, GDP steadily grows at a sustained rate of about 1.5\%. GDP per capita is constantly rising throughout this period as technology also continues to improve. The authors point out, however, that a number of factors can have significant impacts on this model. In particular, major economic crises or significant technological achievement can raise or lower the equilibrium population. 
 
+\subsection{Additional Simulation}
+
+\todo{Complete Jupyter simulations}
+
+\subsection{Analysis}
+
+\todo{Analyze results}
+
+\newpage
+
+\begin{appendices}
+\section{Simulation Code}
+\todo{Insert actual code with comments}
+
+\begin{lstlisting}[language=Python]
+def model(params):   
+    a1, a3k1, a2, b1, b2 = params
+    # Sample comment
+    def dpdt(x, t):
+        return (a1*x[0] + a3k1*x[1] + a2*x[0]*x[1])
+    def dgdt(x, t):
+        return b1*x[1] + b2*x[0]*x[1]
+    def dxdt(x, t):
+        return np.array([dpdt(x, t),  dgdt(x, t)])
+    
+    x0 = [1.15e9, 0.21e12]
+    t = np.arange(1850, 2150, 1)
+    return integrate.odeint(dxdt, x0, t)
+\end{lstlisting}
+
+\end{appendices}
+
 \newpage
 
 \nocite{*}
 \bibliographystyle{abbrv}
 \bibliography{paper}
-
 
 \end{document}
