@@ -1,4 +1,4 @@
-\documentclass{article}
+\documentclass[a4paper]{article}
 \usepackage[title]{appendix}
 \usepackage{authblk}
 \usepackage{mathptmx}
@@ -211,11 +211,11 @@ with $K$ being the theoretical maximum sustainable population, $N_0$ the initial
 
 While $N_0$ is trivially obtained from the dataset, $\gamma$ and $K$ are not so simple to obtain. These values are optimized utilizing the least squares method on the dataset, which contains census data since 1910. This produces a model that very closely matches the data, as seen in Figure 1.
 
-\begin{figure}[ht!]
-\centering
-\includegraphics[width=90mm]{images/lr-graph.png}
-\caption{Results of using least squares on logistic growth \label{overflow}}
-\end{figure}
+%\begin{figure}[ht!]
+%\centering
+%\includegraphics[width=90mm]{images/lr-graph.png}
+%\caption{Results of using least squares on logistic growth \label{overflow}}
+%\end{figure}
 
 \todo{Finish details}
 
@@ -238,7 +238,7 @@ As discussed earlier in this course, the Lotka-Volterra model in it's most basic
 	\frac{dg}{dt} = rpg - bg
 \end{split}
 \end{align}
-where $p$ is the population of the prey, $g$ is the population of the predators, and $\frac{dp}{dt}$ and $\frac{dg}{dt}$ are their annual population changes. $rpg$ describes the interaction between the two species with $r$ being a regulating coefficient, $a$ being the growth rate of the prey in the absence of predators, and $b$ being the death rate of the predators in the absence of prey. Assuming $g$ and $p$ have the same variation, then the ratio $\frac{g}{p}$ can be evaluated to a constant ${q}$. \ref{eq:lv1} can then be rewritten as:
+where $p$ is the population of the prey, $g$ is the population of the predators, and $\frac{dp}{dt}$ and $\frac{dg}{dt}$ are their annual population changes. $rpg$ describes the interaction between the two species with $r$ being a regulating coefficient, $a$ being the growth rate of the prey in the absence of predators, and $b$ being the death rate of the predators in the absence of prey. Assuming $g$ and $p$ have the same variation, then the ratio $\frac{g}{p}$ can be evaluated to a constant ${q}$. Equation \ref{eq:lv1} can then be rewritten as:
 
 \begin{align}
 \begin{split}
@@ -248,7 +248,7 @@ where $p$ is the population of the prey, $g$ is the population of the predators,
 \end{split}
 \end{align}
 
-In order to account for other causes of variation that are not in the predator-prey system, the model can once again be modified to include a function $f(p, g, t)$. This can be seen as a function that modulates the growth of the prey in relation to a theoretical maximum capacity (i.e. due to the lack of natural resources). \ref{eq:lv2} can now be rewritten as:
+In order to account for other causes of variation that are not in the predator-prey system, the model can once again be modified to include a function $f(p, g, t)$. This can be seen as a function that modulates the growth of the prey in relation to a theoretical maximum capacity (i.e. due to the lack of natural resources). Equation \ref{eq:lv2} can now be rewritten as:
 
 \begin{align}
 \begin{split}
