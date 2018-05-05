@@ -15,6 +15,7 @@
 \usepackage{cancel}
 \usepackage{mathtools}
 \usepackage{fullpage}
+\usepackage[nodayofweek]{datetime}
 
 \usepackage{url}
 \usepackage{latexsym}
@@ -202,7 +203,9 @@ In order to understand just a how a few of these models operate, this paper will
 
 \section{Logistic Growth}
 
-The Logistic Growth model is colloquially defined as:
+Perhaps one of the most basic and widely used population growth models is the logistic growth model. It is relatively simple to understand and to adapt to the problem at hand.
+
+As described in class, the logistic growth model is colloquially defined as:
 
 \begin{align}
 \label{eq:log-growth}
@@ -210,7 +213,11 @@ The Logistic Growth model is colloquially defined as:
 \end{align}
 with $K$ being the theoretical maximum sustainable population, $N_0$ the initial population at time $t_0$, $\gamma$ being the yearly growth rate, and $t$ being the time since $t_0$.
 
-While $N_0$ is trivially obtained from the dataset, $\gamma$ and $K$ are not so simple to obtain. These values are optimized utilizing the least squares method on the dataset, which contains census data since 1910. This produces a model that very closely matches the data, as seen in Figure 1.
+The model indicates that over time, the population grows exponentially, before slowly decreasing in reproduction rate. After this inflection point, the population will begin to even out and eventually grow marginally every year, maintaining a size just under the maximum size $K$. 
+
+\subsection{Simulation}
+
+While $N_0$ is trivially obtained from the dataset, $\gamma$ and $K$ must be calculated based on the dataset. These values are optimized utilizing the least squares method. This was used on data collected from the World Bank, which provides information dating back to 1960. The resulting model can be seen in Figure 1.
 
 %\begin{figure}[ht!]
 %\centering
@@ -219,10 +226,6 @@ While $N_0$ is trivially obtained from the dataset, $\gamma$ and $K$ are not so 
 %\end{figure}
 
 \todo{Finish details}
-
-\section{Augmented Logistic Growth}
-
-\todo{Fill in details}
 
 \section{Modified Lotka-Volterra}
 
@@ -278,13 +281,33 @@ It is appropriate to now put the coefficients into context for a better understa
 
 The model's authors derived what they found to be appropriate values for the parameters above when adapting the model to a global scale. The values used are: $T_0 = 1850$, $T_f = 2100$, step size $D_T = 1.0$, $P_0 = 1.15$ billion inhabitants, $G_0 = 0.21$ trillion US\$, $\alpha_1 = 0.3\%$, $\alpha_2 = \frac{-55}{10^{18} US\$}$, $\alpha_3 k_1 = 5.2 \frac{Hab.}{US \$}$, $\beta_1 = 3.1\%$, and $\beta_2 = \frac{-2}{10^{22} Hab.}$. 
 
-As the authors note, the model follows a logistic growth curve initially, as is expected for initial population growth. At a certain point though, the population actually begins to decrease, a significant divergence from the logistic growth model. This can be seen as a result of slowing technological growth and families becoming smaller as they become more financially stable. The population eventually levels out at an equilibrium just below 10 billion people. Meanwhile, GDP steadily grows at a sustained rate of about 1.5\%. GDP per capita is constantly rising throughout this period as technology also continues to improve. The authors point out, however, that a number of factors can have significant impacts on this model. In particular, major economic crises or significant technological achievement can raise or lower the equilibrium population. 
+These numbers, however, do not make much sense. Simple observation based on the dataset reveals that these parameters result in a massive population increase after the first iteration. The primary culprit, it seems, is their value for $\alpha_3 k_1$. As noted earlier, this value indicates how many additional people are added to the population for every dollar added to GDP. Their value indicates that there are an additional 5.2 people for every dollar, which logically does not make much sense. Potential corrections are noted below, based on additional analysis and simulations.
 
-\subsection{Additional Simulation}
+\subsection{Fixing World Simulation}
+
+Additional simulations were performed both for the world and for various countries. The data was obtained from the UN World Bank dating back to 1960 and the parameters were optimized using both least squares and via minimizing a score function.
+
+Since the paper already performed simulations for the world based on a similar dataset, the result was expected to be fairly similar. However, as indicated earlier, their parameters do not make sense and were likely incorrectly reported. The resulting model indicates a substantially growing population, well past what one could reasonably expect. In order to determine the correct values, both the least squares and scoring minimization methods were used. The least squaring method, unfortunately, resulted in nonsensical results. Therefore, the scoring minimization method was utilized and produced more reasonable results. The parameters were $\alpha_1 =0.00327\%$, $\alpha_3 k_1 = \frac{4.93}{10^6} \frac{Hab.}{US \$}$, $\alpha_2 = \frac{-1.15}{10^{16} US \$}$, $\beta_1 = 7.62\%$, and $\beta_2 = \frac{-3.29}{10^{22} Hab.}$ 
+
+The resulting graph, while matching the dataset quite nicely, does not make much logical sense. It indicates a very rapid population growth far past 10 billion people before leveling off. This is likely due to the smaller dataset being used - the paper had data going back to 1850 whereas the data used in the simulation only dates back to 1960 due to the lack of accurate population and GDP information dating back much further. However, a big takeaway from this simulation is the similarity of the parameters to the paper's. While the values were clearly different, they were fairly similar and, most notably, $\alpha_3 k_1$ was off by a magnitude of about $10^{-6}$. Based off of this, the original parameters were slightly adjusted to see if a more accurate picture could be obtained. As seen in the figure, the resulting graph is remarkably similar to what the report indicates. 
+
+As the authors note, the model follows a logistic growth curve initially, as is expected for initial population growth. At a certain point though, the population actually begins to decrease, a significant divergence from the logistic growth model. This can be seen as a result of slowing technological growth and families becoming smaller as they become more financially stable. The population eventually levels out at an equilibrium just below 10 billion people. Meanwhile, GDP steadily grows at a sustained rate of about 1.5\%. GDP per capita is constantly rising throughout this period as technology also continues to improve. The authors point out, however, that a number of factors can have significant impacts on this model. In particular, major economic crises or significant technological achievement can raise or lower the equilibrium population. 
 
 \todo{Complete Jupyter simulations}
 
-\subsection{Analysis}
+\subsection{United States Simulation}
+
+In order to see how well this model adapts to other situations, additional simulations were performed at the country level. Due to the level of accuracy obtained, the least squares method was used. The first simulation was on the United States. The resulting parameters are $\alpha_1 = 1.07\%$, $\alpha_3 k_1 = \frac{2.76}{10^{7}}\frac{Hab.}{US \$}$, $\alpha_2 = \frac{-1.04}{10^{15} US\$}$, $\beta_1 = 17.9\%$, and $\beta_2 = \frac{-4.63}{10^{10} Hab.}$ The graph can be seen in the figure.
+
+The population is predicted to continue rising steadily until it reaches its peak at just under 375 million people in 2060 before decreasing. Unlike the model for the world population though, this decrease does not appear to level off at an equilibrium. This does not make much logical sense since there is no reasonable explanation for the population to steadily decrease that much based on GDP alone. This d
+
+One point of particular interest is the value for $\beta_1$, which indicates the growth rate of GDP in the absence of other factors. $17.9\%$ is remarkably high, especially when compared to the world as a whole. This is somewhat expected considering how developed the United States is. 
+
+\subsection{South Africa Simulation}
+
+The second country simulation was performed with South Africa. This is a good candidate for analysis due to its massive difference to the United States - it was only recently developed and, based off of the data, it has experienced extreme economic hardship in the past several years. Previous simulations ran on data that had a constantly increasing GDP, so this example is used to see how the model performs under more extreme conditions.
+
+The output parameters are $\alpha_1 = 2.22\%$, $\alpha_3 k_1 = \frac{2.77}{10^{6}}\frac{Hab.}{US \$}$, $\alpha_2 = \frac{-8.31}{10^{14} US\$}$, $\beta_1 = 29.0\%$, and $\beta_2 = \frac{-5.21}{10^{9} Hab.}$.
 
 \todo{Analyze results}
 
