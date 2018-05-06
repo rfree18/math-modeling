@@ -215,6 +215,8 @@ with $K$ being the theoretical maximum sustainable population, $N_0$ the initial
 
 The model indicates that over time, the population grows exponentially, before slowly decreasing in reproduction rate. After this inflection point, the population will begin to even out and eventually grow marginally every year, maintaining a size just under the maximum size $K$. 
 
+Logistic growth does have a serious limitation in that it does not account for any outside factors. Should something result in the population falling, the model could not account for this since it assumes an always increasing population. 
+
 \subsection{Simulation}
 
 While $N_0$ is trivially obtained from the dataset, $\gamma$ and $K$ must be calculated based on the dataset. These values are optimized utilizing the least squares method. This was used on data collected from the World Bank, which provides information dating back to 1960. The resulting model can be seen in Figure 1.
@@ -242,17 +244,9 @@ As discussed earlier in this course, the Lotka-Volterra model in it's most basic
 	\frac{dg}{dt} = rpg - bg
 \end{split}
 \end{align}
-where $p$ is the population of the prey, $g$ is the population of the predators, and $\frac{dp}{dt}$ and $\frac{dg}{dt}$ are their annual population changes. $rpg$ describes the interaction between the two species with $r$ being a regulating coefficient, $a$ being the growth rate of the prey in the absence of predators, and $b$ being the death rate of the predators in the absence of prey. Assuming $g$ and $p$ have the same variation, then the ratio $\frac{g}{p}$ can be evaluated to a constant ${q}$. Equation \ref{eq:lv1} can then be rewritten as:
+where $p$ is the population of the prey, $g$ is the population of the predators, and $\frac{dp}{dt}$ and $\frac{dg}{dt}$ are their annual population changes. $rpg$ describes the interaction between the two species with $r$ being a regulating coefficient, $a$ being the growth rate of the prey in the absence of predators, and $b$ being the death rate of the predators in the absence of prey. 
 
-\begin{align}
-\begin{split}
-\label{eq:lv2}
-	\frac{dp}{dt} = ap - rqp^2\\
-	\frac{dg}{dt} = \frac{r}{q}g^2- bg
-\end{split}
-\end{align}
-
-In order to account for other causes of variation that are not in the predator-prey system, the model can once again be modified to include a function $f(p, g, t)$. This can be seen as a function that modulates the growth of the prey in relation to a theoretical maximum capacity (i.e. due to the lack of natural resources). Equation \ref{eq:lv2} can now be rewritten as:
+In order to account for other causes of variation that are not in the predator-prey system, the model can be modified to include a function $f(p, g, t)$. This can be seen as a function that modulates the growth of the prey in relation to a theoretical maximum capacity (i.e. due to the lack of natural resources). Equation \ref{eq:lv1} can now be rewritten as:
 
 \begin{align}
 \begin{split}
@@ -309,7 +303,13 @@ The second country simulation was performed with South Africa. This is a good ca
 
 The output parameters are $\alpha_1 = 2.22\%$, $\alpha_3 k_1 = \frac{2.77}{10^{6}}\frac{Hab.}{US \$}$, $\alpha_2 = \frac{-8.31}{10^{14} US\$}$, $\beta_1 = 29.0\%$, and $\beta_2 = \frac{-5.21}{10^{9} Hab.}$.
 
-\todo{Analyze results}
+\section{Conclusion}
+
+As seen above, each model has its own degree of success. While the modified Lotka-Volterra model performed remarkably well in modeling the world population, it completely falls apart when analyzing a less stable source of economic and population growth, such as South Africa. Even for a well established country such as the United States, the model does not make much logical sense, despite fitting to the data quite well. 
+
+The logistic growth model, despite its limitations, consistently produces results that make sense while also fitting the data excellently. These results suggest that the modified Lotka-Volterra model is fundamentally flawed when working with economies that are not consistently growing. It seems to assume that an economy should always be growing and fails to account for any variances in that respect. More than that, the model requires a large amount of data to function correctly. One of the reasons why the model for the United States performed poorly, despite having a consistently growing economy, may be due to the lack of historical data. The original paper optimized the model using data dating back to 1850 whereas the simulations here only use data back to 1950 due to the lack of consistent sources. 
+
+With more data, this model would likely produce better results for the United States and similar countries. However, the model thrives on a larger scale, where fewer factors have a significant effect in population growth.
 
 \newpage
 
