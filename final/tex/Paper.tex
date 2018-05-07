@@ -197,9 +197,9 @@
 \maketitle
 \section{Introduction}
 
-Population growth is one of the many models of great importance to the scientific community. These models are used to predict the challenges and changes needed in the near and longterm future as the world's population inevitably grows. It is such an important subject that the UN frequently discusses new and better ways of modelling the future population. This has led to a number of competing models, each with its own strengths and weaknesses. While no model can be perfect, some have come relatively close to matching existing data and predict reasonable growth in the future. 
+Population growth is one of the many models of great importance to the scientific community. These models are used to predict the challenges and changes needed in the near and longterm future as the world's population inevitably grows. It is such an important subject that the UN frequently discusses new and better ways of modeling the future population. This has led to a number of competing models, each with its own strengths and weaknesses. While no model can be perfect, some have come relatively close to matching existing data and predict reasonable growth in the future. 
 
-In order to understand just a how a few of these models operate, this paper will explore 3 separate models: standard logistic growth (LG), logistic growth augmented with migration data (LGM), and a modified Lotka-Volterra model (MLV). Each model has its own strengths and weaknesses and perform differently in comparison to actual data provided by the United Nations World Bank.
+In order to understand just a how a few of these models operate, this paper will explore 2 separate models: standard logistic growth (LG) and a modified Lotka-Volterra model (MLV). Each model has its own strengths and weaknesses and perform differently in comparison to actual data provided by the United Nations World Bank.
 
 \section{Logistic Growth}
 
@@ -209,7 +209,7 @@ As described in class, the logistic growth model is colloquially defined as:
 
 \begin{align}
 \label{eq:log-growth}
-	P(t) = \frac{K N_0 e^{\gamma t}}{K + N_0 (e^{\gamma t} - 1)}
+	N(t) = \frac{K N_0 e^{\gamma t}}{K + N_0 (e^{\gamma t} - 1)}
 \end{align}
 with $K$ being the theoretical maximum sustainable population, $N_0$ the initial population at time $t_0$, $\gamma$ being the yearly growth rate, and $t$ being the time since $t_0$.
 
@@ -218,15 +218,21 @@ The model indicates that over time, the population grows exponentially, before s
 Logistic growth does have a serious limitation in that it does not account for any outside factors. Should something result in the population falling, the model could not account for this since it assumes an always increasing population. 
 
 \subsection{Simulation}
+ 
+While $N_0$ is trivially obtained from the dataset, $\gamma$ and $K$ must be calculated based on the dataset. To do so, the least squares method is utilized on the equation:
 
-While $N_0$ is trivially obtained from the dataset, $\gamma$ and $K$ must be calculated based on the dataset. These values are optimized utilizing the least squares method. This was used on data collected from the World Bank, which provides information dating back to 1960. The model was simulated on the world, United States, and South African populations (see section 3 for reasoning).
+\begin{align}
+	\frac{dN}{dt} = \gamma - \frac{\gamma N(t)}{K}
+\end{align}
+
+This was used on data collected from the World Bank, which provides information dating back to 1960. The model was simulated on the world, United States, and South African populations (see section 3 for reasoning).
 
 As expected, the model attains the same basic shape described earlier for all three populations. Using the least squares method, the values of $\gamma$ and $K$ were found to be
  $\gamma = 2.72\%$, $K = 12,263,457,578 $ Habitants (Hab.) for the world, 
  $\gamma = 1.71\%$, $K = 632,260,032$ Hab. for the U.S., and 
  $\gamma = 3.85\%$, $K = 79,007,800$ Hab. for South Africa.
  
-These numbers seem rather reasonable, with rather tame growth rates and logically sound maximum populations. The growth rate of South Africa is larger than that of the world, which makes sense considering it is a rapidly developing country. On the opposite end, the growth rate for the U.S. is lower than that of the world due to the fact that it is already heavily developed and has far less room for growth.
+These numbers seem reasonable, with rather tame growth rates and logically sound maximum populations. The growth rate of South Africa is larger than that of the world, which makes sense considering it is a rapidly developing country. On the opposite end, the growth rate for the U.S. is lower than that of the world due to the fact that it is already heavily developed and has far less room for growth.
 
 %\begin{figure}[ht!]
 %\centering
@@ -314,9 +320,7 @@ As mentioned earlier, the South African economy experienced hardship in recent y
 
 As seen above, each model has its own degree of success. While the modified Lotka-Volterra model performed remarkably well in modeling the world population, it completely falls apart when analyzing a less stable source of economic and population growth, such as South Africa. Even for a well established country such as the United States, the model does not make much logical sense, despite fitting to the data quite well. 
 
-The logistic growth model, despite its limitations, consistently produces results that make sense while also fitting the data excellently. These results suggest that the modified Lotka-Volterra model is fundamentally flawed when working with economies that are not consistently growing. It seems to assume that an economy should always be growing and fails to account for any variances in that respect. More than that, the model requires a large amount of data to function correctly. One of the reasons why the model for the United States performed poorly, despite having a consistently growing economy, may be due to the lack of historical data. The original paper optimized the model using data dating back to 1850 whereas the simulations here only use data back to 1950 due to the lack of consistent sources. 
-
-With more data, this model would likely produce better results for the United States and similar countries. However, the model thrives on a larger scale, where fewer factors have a significant effect in population growth.
+The logistic growth model, despite its limitations, consistently produces results that make sense while also fitting the data excellently. These results suggest that the modified Lotka-Volterra model is flawed when working on smaller systems, where other factors have a much large impact on population and economic growth. It seems to assume that an economy should always be growing and fails to account for any variances in that respect. More than that, the model requires a large amount of data to function correctly, something that is unfortunately not readily available in most cases. With more data, this model would likely produce better results for the United States and similar countries. However, the model thrives on a larger scale, where fewer factors have a significant effect in population growth.
 
 \newpage
 
