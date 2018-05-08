@@ -197,15 +197,15 @@
 \maketitle
 \section{Introduction}
 
-Population growth is one of the many models of great importance to the scientific community. These models are used to predict the challenges and changes needed in the near and longterm future as the world's population inevitably grows. It is such an important subject that the UN frequently discusses new and better ways of modeling the future population. This has led to a number of competing models, each with its own strengths and weaknesses. While no model can be perfect, some have come relatively close to matching existing data and predict reasonable growth in the future. 
+Population growth models are of the many topics of great importance to the scientific community. These models are used to predict the challenges and changes needed in the near and longterm future as the world's population inevitably grows. It is such an important subject that the UN frequently discusses new and better ways of modeling the future population. This has led to a number of competing models, each with its own strengths and weaknesses. While no model can be perfect, some have come relatively close to matching existing data and predict reasonable growth in the future. 
 
-In order to understand just a how a few of these models operate, this paper will explore 2 separate models: standard logistic growth (LG) and a modified Lotka-Volterra model (MLV). Each model has its own strengths and weaknesses and perform differently in comparison to actual data provided by the United Nations World Bank.
+In order to understand a how a few of these models operate, this paper will explore 2 separate models: standard logistic growth (LG) and a modified Lotka-Volterra model (MLV). Each model has its own strengths and weaknesses and perform differently in comparison to actual data provided by the United Nations World Bank.
 
 \section{Logistic Growth}
 
 Perhaps one of the most basic and widely used population growth models is the logistic growth model. It is relatively simple to understand and to adapt to the problem at hand.
 
-As described in class, the logistic growth model is colloquially defined as:
+As described in class, the logistic growth model is defined as:
 
 \begin{align}
 \label{eq:log-growth}
@@ -213,13 +213,13 @@ As described in class, the logistic growth model is colloquially defined as:
 \end{align}
 with $K$ being the theoretical maximum sustainable population, $N_0$ the initial population at time $t_0$, $\gamma$ being the yearly growth rate, and $t$ being the time since $t_0$.
 
-The model indicates that over time, the population grows exponentially, before slowly decreasing in reproduction rate. After this inflection point, the population will begin to even out and eventually grow marginally every year, maintaining a size just under the maximum size $K$. 
+The model indicates that over time, the population grows exponentially, before slowly experiencing a decrease in reproduction rate. After this inflection point, the population will begin to even out and eventually grow marginally every year, maintaining a size just under the maximum $K$. 
 
 Logistic growth does have a serious limitation in that it does not account for any outside factors. Should something result in the population falling, the model could not account for this since it assumes an always increasing population. 
 
 \subsection{Simulation}
  
-While $N_0$ is trivially obtained from the dataset, $\gamma$ and $K$ must be calculated based on the dataset. To do so, the least squares method is utilized on the equation:
+While $N_0$ is trivially obtained, $\gamma$ and $K$ must be calculated based on the dataset. To do so, the least squares method is utilized on the equation:
 
 \begin{align}
 	\frac{dN}{dt} = \gamma - \frac{\gamma N(t)}{K}
@@ -227,7 +227,7 @@ While $N_0$ is trivially obtained from the dataset, $\gamma$ and $K$ must be cal
 
 This was used on data collected from the World Bank, which provides information dating back to 1960. The model was simulated on the world, United States, and South African populations (see section 3 for reasoning).
 
-As expected, the model attains the same basic shape described earlier for all three populations. Using the least squares method, the values of $\gamma$ and $K$ were found to be
+As expected, the model attains the same basic shape described earlier for all three populations. The values of $\gamma$ and $K$ were found to be
  $\gamma = 2.72\%$, $K = 12,263,457,578 $ Habitants (Hab.) for the world, 
  $\gamma = 1.71\%$, $K = 632,260,032$ Hab. for the U.S., and 
  $\gamma = 3.85\%$, $K = 79,007,800$ Hab. for South Africa.
@@ -255,9 +255,9 @@ As discussed earlier in this course, the Lotka-Volterra model in it's most basic
 	\frac{dg}{dt} = rpg - bg
 \end{split}
 \end{align}
-where $p$ is the population of the prey, $g$ is the population of the predators, and $\frac{dp}{dt}$ and $\frac{dg}{dt}$ are their annual population changes. $rpg$ describes the interaction between the two species with $r$ being a regulating coefficient, $a$ being the growth rate of the prey in the absence of predators, and $b$ being the death rate of the predators in the absence of prey. 
+where $p$ is the population of the prey, $g$ is the population of the predators, and $\frac{dp}{dt}$, $\frac{dg}{dt}$ are their annual population changes. $rpg$ describes the interaction between the two species with $r$ being a regulating coefficient, $a$ being the growth rate of the prey in the absence of predators, and $b$ being the death rate of the predators in the absence of prey. 
 
-In order to account for other causes of variation that are not in the predator-prey system, the model can be modified to include a function $f(p, g, t)$. This can be seen as a function that modulates the growth of the prey in relation to a theoretical maximum capacity (i.e. due to the lack of natural resources). Equation \ref{eq:lv1} can now be rewritten as:
+In order to account for other causes of variation that are not in the predator-prey system, the model can be modified to include a function $f(p, g, t)$. This can be seen as a function that modulates the growth of the prey in relation to a change in resources. Equation \ref{eq:lv1} can now be rewritten as:
 
 \begin{align}
 \begin{split}
@@ -266,7 +266,7 @@ In order to account for other causes of variation that are not in the predator-p
 	\frac{dg}{dt} = \beta_1 g + \beta_2 p g
 \end{split}
 \end{align}
-where $a, b, r$ have been replaced by $\alpha_1, \alpha_2, \beta_1, \beta_2$, which now also contain the signs. $\alpha_3f$ modulates the growth rate $\alpha_1$ in response to changes in natural resources.
+where $a, b, r$ have been replaced by $\alpha_1, \alpha_2, \beta_1, \beta_2$, which now also contain the signs. $\alpha_3f$ modulates $f$.
 
 From here, the model can finally be adapted to the population growth problem. $p$ can be defined as the population and $g$ as the GDP at time $t$. Putting the model into context, the function $f$ can now be determined to finally derive an appropriate model from this problem.
 
@@ -292,9 +292,9 @@ These numbers, however, do not make much sense. Simple observation based on the 
 
 Additional simulations were performed both for the world and for various countries. The data was obtained from the UN World Bank dating back to 1960 and the parameters were optimized using both least squares and via minimizing a modified L2 norm score function.
 
-Since the paper already performed simulations for the world based on a similar dataset, the result was expected to be fairly similar. However, as indicated earlier, their parameters do not make sense and were likely incorrectly reported. The resulting model indicates a substantially growing population, well past what one could reasonably expect. In order to determine the correct values, both the least squares and scoring minimization methods were used. The least squaring method, unfortunately, resulted in nonsensical results. Therefore, the scoring minimization method was utilized and produced more reasonable results. The parameters were $\alpha_1 =0.00327\%$, $\alpha_3 k_1 = \frac{4.93}{10^6} \frac{Hab.}{US \$}$, $\alpha_2 = \frac{-1.15}{10^{16} US \$}$, $\beta_1 = 7.62\%$, and $\beta_2 = \frac{-3.29}{10^{22} Hab.}$ 
+Since the paper already performed simulations for the world based on a similar dataset, the result was expected to be fairly similar. However, as indicated earlier, their parameters do not make sense and were likely incorrectly reported. The resulting model indicates a substantially growing population, well past what one could reasonably expect. In order to determine the correct values, both the least squares and scoring minimization methods were used. The least squaring method, unfortunately, resulted in nonsensical results. Therefore, the scoring minimization method was utilized and produced more reasonable results. The parameters were $\alpha_1 =0.327\%$, $\alpha_3 k_1 = \frac{4.93}{10^6} \frac{Hab.}{US \$}$, $\alpha_2 = \frac{-1.15}{10^{16} US \$}$, $\beta_1 = 7.62\%$, and $\beta_2 = \frac{-3.29}{10^{22} Hab.}$.
 
-The resulting graph, while matching the dataset quite nicely, does not make much logical sense. It indicates a very rapid population growth far past 10 billion people before leveling off. This is likely due to the smaller dataset being used - the paper had data going back to 1850 whereas the data used in the simulation only dates back to 1960 due to the lack of accurate population and GDP information dating back much further. However, a big takeaway from this simulation is the similarity of the parameters to the paper's. While the values were clearly different, they were fairly similar and, most notably, $\alpha_3 k_1$ was off by a magnitude of about $10^{-6}$. Based off of this, the original parameters were slightly adjusted to see if a more accurate picture could be obtained. The resulting graph is remarkably similar to what the report indicates. 
+The resulting graph, while matching the dataset quite nicely, does not make much logical sense. It indicates a very rapid population growth far past 10 billion people before leveling off. This is likely due to the smaller dataset being used - the paper had data going back to 1850 whereas the data used in the simulation only dates back to 1960 due to the lack of accurate population and GDP information dating back much further. However, a big takeaway from this simulation is the similarity of the parameters to the paper's. While the values were clearly different, they were fairly similar and, most notably, $\alpha_3 k_1$ was off by a magnitude of about $10^{-6}$. Based off of this, the original parameters were slightly adjusted manually to see if a more accurate picture could be obtained. The final parameters are $\alpha_1 = 0.3\%$, $\alpha_3 k_1 = \frac{5.2}{10^{6}}\frac{Hab.}{US \$}$, $\alpha_2 = \frac{-55}{10^{17} US\$}$, $\beta_1 = 3.6\%$, and $\beta_2 = \frac{-2}{10^{22} Hab.}$. The resulting graph is remarkably similar to what the report indicates. 
 
 As the authors note, the model follows a logistic growth curve initially, as is expected for initial population growth. At a certain point though, the population actually begins to decrease, a significant divergence from the logistic growth model. This can be seen as a result of slowing technological growth and families becoming smaller as they become more financially stable. The population eventually levels out at an equilibrium just below 10 billion people. Meanwhile, GDP steadily grows at a sustained rate of about 1.5\%. GDP per capita is constantly rising throughout this period as technology also continues to improve. The authors point out, however, that a number of factors can have significant impacts on this model. In particular, major economic crises or significant technological achievement can raise or lower the equilibrium population. 
 
@@ -312,7 +312,7 @@ The second country simulation was performed with South Africa. This is a good ca
 
 The output parameters are $\alpha_1 = 2.22\%$, $\alpha_3 k_1 = \frac{2.77}{10^{6}}\frac{Hab.}{US \$}$, $\alpha_2 = \frac{-8.31}{10^{14} US\$}$, $\beta_1 = 29.0\%$, and $\beta_2 = \frac{-5.21}{10^{9} Hab.}$. The resulting graph for population exhibits a shape similar to that seen with the world simulation, with the population rising, before eventually falling slightly and reaching an equilibrium. GDP is constantly exponentially increasing.
 
-Despite the similarities to the world simulation, the model performed extremely poorly. While it initially follows the data quite nicely, it significantly diverges and keeps maximum population far below what the current population is. Meanwhile, GDP is shown to grow exponentially to unfathomable values that exceed even what was predicted for the world.
+Despite the similarities to the world simulation, the model performed extremely poorly. While it initially follows the data quite nicely, it significantly diverges and keeps the maximum population far below what the current population is. Meanwhile, GDP is shown to grow exponentially to unfathomable values that exceed even what was predicted for the world.
 
 As mentioned earlier, the South African economy experienced hardship in recent years, unlike the other two population samples used previously. This is likely the culprit for the bizarre output and indicates that the model performs poorly for populations that do not experience economic stability and suggests that there are other significant factors that the model does not take into account.
 
