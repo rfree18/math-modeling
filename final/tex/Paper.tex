@@ -201,6 +201,10 @@ Population growth models are of the many topics of great importance to the scien
 
 In order to understand a how a few of these models operate, this paper will explore 2 separate models: standard logistic growth (LG) and a modified Lotka-Volterra model (MLV). Each model has its own strengths and weaknesses and perform differently in comparison to actual data provided by the United Nations World Bank.
 
+\todo{Fix figure captions}
+
+\todo{Add figure labels/references}
+
 \section{Logistic Growth}
 
 Perhaps one of the most basic and widely used population growth models is the logistic growth model. It is relatively simple to understand and to adapt to the problem at hand.
@@ -233,12 +237,6 @@ As expected, the model attains the same basic shape described earlier for all th
  $\gamma = 3.85\%$, $K = 79,007,800$ Hab. for South Africa.
  
 These numbers seem reasonable, with rather tame growth rates and logically sound maximum populations. The growth rate of South Africa is larger than that of the world, which makes sense considering it is a rapidly developing country. On the opposite end, the growth rate for the U.S. is lower than that of the world due to the fact that it is already heavily developed and has far less room for growth.
-
-%\begin{figure}[ht!]
-%\centering
-%\includegraphics[width=90mm]{images/lr-graph.png}
-%\caption{Results of using least squares on logistic growth \label{overflow}}
-%\end{figure}
 
 \section{Modified Lotka-Volterra}
 
@@ -296,11 +294,23 @@ Since the paper already performed simulations for the world based on a similar d
 
 The resulting graph, while matching the dataset quite nicely, does not make much logical sense. It indicates a very rapid population growth far past 10 billion people before leveling off. This is likely due to the smaller dataset being used - the paper had data going back to 1850 whereas the data used in the simulation only dates back to 1960 due to the lack of accurate population and GDP information dating back much further. However, a big takeaway from this simulation is the similarity of the parameters to the paper's. While the values were clearly different, they were fairly similar and, most notably, $\alpha_3 k_1$ was off by a magnitude of about $10^{-6}$. Based off of this, the original parameters were slightly adjusted manually to see if a more accurate picture could be obtained. The final parameters are $\alpha_1 = 0.3\%$, $\alpha_3 k_1 = \frac{5.2}{10^{6}}\frac{Hab.}{US \$}$, $\alpha_2 = \frac{-55}{10^{17} US\$}$, $\beta_1 = 3.6\%$, and $\beta_2 = \frac{-2}{10^{22} Hab.}$. The resulting graph is remarkably similar to what the report indicates. 
 
+\begin{figure}[ht!]
+\includegraphics[width=80mm]{images/world-pop.png}
+\includegraphics[width=80mm]{images/world-gdp.png}
+\caption{Results of modeling world population and GDP by manual modifications based off of minimizing scoring function \label{overflow}}
+\end{figure}
+
 As the authors note, the model follows a logistic growth curve initially, as is expected for initial population growth. At a certain point though, the population actually begins to decrease, a significant divergence from the logistic growth model. This can be seen as a result of slowing technological growth and families becoming smaller as they become more financially stable. The population eventually levels out at an equilibrium just below 10 billion people. Meanwhile, GDP steadily grows at a sustained rate of about 1.5\%. GDP per capita is constantly rising throughout this period as technology also continues to improve. The authors point out, however, that a number of factors can have significant impacts on this model. In particular, major economic crises or significant technological achievement can raise or lower the equilibrium population. 
 
 \subsection{United States Simulation}
 
 In order to see how well this model adapts to other situations, additional simulations were performed at the country level. Due to the level of accuracy obtained, the least squares method was used. The first simulation was on the United States. The resulting parameters are $\alpha_1 = 1.07\%$, $\alpha_3 k_1 = \frac{2.76}{10^{7}}\frac{Hab.}{US \$}$, $\alpha_2 = \frac{-1.04}{10^{15} US\$}$, $\beta_1 = 17.9\%$, and $\beta_2 = \frac{-4.63}{10^{10} Hab.}$ 
+
+\begin{figure}[ht!]
+\includegraphics[width=80mm]{images/us-pop.png}
+\includegraphics[width=80mm]{images/us-gdp.png}
+\caption{Results of modeling U.S. population and GDP by using the least squares method\label{overflow}}
+\end{figure}
 
 The population is predicted to continue rising steadily until it reaches its peak at just under 375 million people in 2060 before decreasing. Unlike the model for the world population though, this decrease does not appear to level off at an equilibrium. This does not make much logical sense since there is no reasonable explanation for the population to steadily decrease that much based on GDP alone. It is likely that the model would perform far better with additional historical data. The paper's simulation of the world population used data reaching back to 1850 whereas the simulation here only used data dating to 1960 due to the lack of credible sources. Being less than a century ago, this is relatively recent and likely deprives the model of crucial information to successfully simulate this system. If additional data were used, the model would likely be similar to what was found with the world population, where an equilibrium value was attained.
 
@@ -311,6 +321,12 @@ One point of particular interest is the value for $\beta_1$, which indicates the
 The second country simulation was performed with South Africa. This is a good candidate for analysis due to its massive difference to the United States - it was only recently developed and, based off of the data, it has experienced extreme economic hardship in the past several years. Previous simulations ran on data that had a constantly increasing GDP, so this example is used to see how the model performs under more extreme conditions.
 
 The output parameters are $\alpha_1 = 2.22\%$, $\alpha_3 k_1 = \frac{2.77}{10^{6}}\frac{Hab.}{US \$}$, $\alpha_2 = \frac{-8.31}{10^{14} US\$}$, $\beta_1 = 29.0\%$, and $\beta_2 = \frac{-5.21}{10^{9} Hab.}$. The resulting graph for population exhibits a shape similar to that seen with the world simulation, with the population rising, before eventually falling slightly and reaching an equilibrium. GDP is constantly exponentially increasing.
+
+\begin{figure}[ht!]
+\includegraphics[width=80mm]{images/sa-pop.png}
+\includegraphics[width=80mm]{images/sa-gdp.png}
+\caption{Results of modeling South Africa population and GDP by using the least square method.  \label{overflow}}
+\end{figure}
 
 Despite the similarities to the world simulation, the model performed extremely poorly. While it initially follows the data quite nicely, it significantly diverges and keeps the maximum population far below what the current population is. Meanwhile, GDP is shown to grow exponentially to unfathomable values that exceed even what was predicted for the world.
 
